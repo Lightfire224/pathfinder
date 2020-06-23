@@ -1,3 +1,4 @@
+
 function neighbors(node){
     directions = [ [1,0], [0,1], [-1,0], [0, -1]]
     result= []
@@ -12,6 +13,5 @@ function neighbors(node){
     }
     return result
 }
-// return node[0] + directions[0][0]
 
 console.log("The edges of [0,0] are: ", neighbors([0,0]))
