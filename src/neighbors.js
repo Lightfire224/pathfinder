@@ -15,7 +15,6 @@ function neighbors(grid, row, col) {
         }
     });
 
-    // console.log("The edge nodes of %j are %j", grid[row][col], [row, col], result)
     return result
 }
 
@@ -27,9 +26,7 @@ const grid = [
 ]
 
 function dfs(grid, row, col, visited) {
-    // const isVisited = visited.some(coord => {
-    //     return coord[0] === row && coord[1] === col
-    // })
+
     if (visited.has([row, col].join(","))) {
         return
     }
@@ -39,14 +36,9 @@ function dfs(grid, row, col, visited) {
     for (node of nodeNeighbors) {
         dfs(grid, node[0], node[1], visited)
     }
-    // for (nodeIdx in nodeNeighbors){
-    //     const node = nodeNeighbors[nodeIdx]
-    //     dfs(grid, node[0], node[1], visited)
-    // }
-    // console.log(visited)
+
 }
 
-// I have to pass in the starting row/column to the queue
 function bfs(grid, row, col, visited) {
     console.log(grid, row, col, visited)
     console.log(visited)
@@ -54,12 +46,8 @@ function bfs(grid, row, col, visited) {
 
     while (queue.length > 0) {
         const current = queue.shift()
-        // console.log(current[0], current[1])
         console.log("Visting", current, "with value", grid[current[0]][current[1]])
-
         visited.add([current[0], current[1]].join(","))
-        // console.log(visited)
-
         const nodeNeighbors = neighbors(grid, current[0], current[1])
         for ([r, c] of nodeNeighbors) {
             if (!visited.has([r, c].join(","))) {
