@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.grid{
+  width: 620px;
+  height: 620px;
+}
+
+.cell{
+  display: inline-block;
+  width:60px;
+  height:60px;
+  border: solid 1px black;
+  background-color: white;
+}
+

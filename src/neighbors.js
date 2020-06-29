@@ -25,29 +25,49 @@ const grid = [
     [31, 32, 33, 34, 35], // 2
 ]
 
-function dfs(grid, row, col, visited) {
+// function dijkstras(grid, row, col) {
+//     const nodeNeighbors = neighbors(grid, row, col)
+
+//     graph = {}
+// }
+
+function dfs(grid, row, col, visited, endRow, endCol) {
+
+    if (visited.has([endRow, endCol].join(","))) {
+        return -1
+    }
 
     if (visited.has([row, col].join(","))) {
         return
     }
     console.log("Visting", row, col, "with value", grid[row][col])
     visited.add([row, col].join(","))
+
     const nodeNeighbors = neighbors(grid, row, col)
     for (node of nodeNeighbors) {
-        dfs(grid, node[0], node[1], visited)
+        dfs(grid, node[0], node[1], visited, endRow, endCol)
     }
-
 }
 
-function bfs(grid, row, col, visited) {
-    console.log(grid, row, col, visited)
-    console.log(visited)
-    const queue = [[row, col]]
+/// Tests
+// function testDFS() {
+// dfs(grid, 0, 0, new Set(), 2, 2);
+// console.log('solving next..')
+// dfs(grid, 0, 1, new Set());
+// }
 
+function bfs(grid, row, col, visited, endRow, endCol) {
+    const queue = [[row, col]]
     while (queue.length > 0) {
         const current = queue.shift()
+
         console.log("Visting", current, "with value", grid[current[0]][current[1]])
         visited.add([current[0], current[1]].join(","))
+
+        if (visited.has([endRow, endCol].join(","))) {
+            return -1
+        }
+
         const nodeNeighbors = neighbors(grid, current[0], current[1])
         for ([r, c] of nodeNeighbors) {
             if (!visited.has([r, c].join(","))) {
@@ -59,18 +79,13 @@ function bfs(grid, row, col, visited) {
 }
 
 
-function testBFS() {
-    bfs(grid, 0, 0, new Set())
-}
-testBFS()
-
-
-/// Tests
-// function testDFS() {
-//     dfs(grid, 0, 0, new Set());
-//     console.log('solving next..')
-//     dfs(grid, 0, 1, new Set());
+// function testBFS() {
+//     bfs(grid, 0, 0, new Set(), 2, 2)
 // }
+// testBFS()
+
+
+
 
 function testNeighbor() {
     // grid[/* row index */][/* columns index */]
@@ -85,3 +100,17 @@ function testNeighbor() {
 }
 
 // testDFS()
+
+function createGrid() {
+    const grid = []
+    for (let row = 0; row < 10; row++) {
+        const rowData=[]
+        for (let col = 0; col < 10; col++) {
+            rowData.push(col)
+            grid.push(rowData)
+        }
+    }
+    console.log(grid)
+}
+
+createGrid()
