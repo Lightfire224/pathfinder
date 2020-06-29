@@ -40,7 +40,7 @@ function dfs(grid, row, col, visited, endRow, endCol) {
     if (visited.has([row, col].join(","))) {
         return
     }
-    console.log("Visting", row, col, "with value", grid[row][col])
+    // console.log("Visting", row, col, "with value", grid[row][col])
     visited.add([row, col].join(","))
 
     const nodeNeighbors = neighbors(grid, row, col)
@@ -61,7 +61,7 @@ function bfs(grid, row, col, visited, endRow, endCol) {
     while (queue.length > 0) {
         const current = queue.shift()
 
-        console.log("Visting", current, "with value", grid[current[0]][current[1]])
+        // console.log("Visting", current, "with value", grid[current[0]][current[1]])
         visited.add([current[0], current[1]].join(","))
 
         if (visited.has([endRow, endCol].join(","))) {
@@ -89,14 +89,14 @@ function bfs(grid, row, col, visited, endRow, endCol) {
 
 function testNeighbor() {
     // grid[/* row index */][/* columns index */]
-    console.log("Rows: ", grid.length, "Columns: ", grid[0].length)
+    // console.log("Rows: ", grid.length, "Columns: ", grid[0].length)
 
     neighbors(grid, 1, 2)
     console.log('some edges')
     neighbors(grid, 0, 0)
     neighbors(grid, 2, 4)
     neighbors(grid, 2, 0)
-    console.log(neighbors(grid, 1, 2).map(coord => grid[coord[0]][coord[1]]))
+    // console.log(neighbors(grid, 1, 2).map(coord => grid[coord[0]][coord[1]]))
 }
 
 // testDFS()
@@ -106,11 +106,21 @@ function createGrid() {
     for (let row = 0; row < 10; row++) {
         const rowData=[]
         for (let col = 0; col < 10; col++) {
-            rowData.push(col)
-            grid.push(rowData)
+            let tensPlace = row * 10
+            const columnNumber = tensPlace + col
+            rowData.push(columnNumber)
         }
+        grid.push(rowData)
     }
+    // console.log(grid)
+    return grid
+}
+
+// createGrid()
+
+function breakUpEachIndividualGridNumber(grid){
+    
     console.log(grid)
 }
 
-createGrid()
+breakUpEachIndividualGridNumber(createGrid())

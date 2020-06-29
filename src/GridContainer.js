@@ -19,26 +19,23 @@ export default class GridContainer extends React.Component {
 
     createNodes() {
         const grid = []
-        // let n = 0
-        //outer loop, creates row list
         for (let row = 0; row < 10; row++) {
             const rowData = []
-            // creates integers in row
             for (let col = 0; col < 10; col++) {
                 let tensPlace = row * 10
                 const columnNumber = tensPlace + col
                 rowData.push(columnNumber)
             }
-            //keeps count of the current tens place
-            // n += 10
             grid.push(rowData)
         }
         this.setState({ grid })
     }
 
-    updateVisited = (isVisited) => {
-        this.state.visitedArr.push(isVisited)
-        console.log(this.state.visitedArr)
+    updateVisited = (isVisitedArr) => {
+        //converting visited values from [row, col] ie. [3,2]
+        //to integers of 
+        const isVisitedNumber = parseInt(isVisitedArr.toString().split(",").join(""),10)
+        this.state.visitedArr.push(isVisitedNumber)
         this.setState({
             isVisited: [...this.state.visitedArr]
         })
@@ -47,13 +44,61 @@ export default class GridContainer extends React.Component {
     updateNeighbors = (neighborItems) => {
         const neighborList = []
         neighborList.push(neighborItems)
-        console.log(neighborList)
+        // console.log(neighborList)
         this.setState({
             neighborList
         })
     }
 
-    //cell state, array of hashes with each cell's individual state
+    generateCells = (col, comparisonIdx) => {
+        // console.log("col:", col, "comparisonIdx", comparisonIdx)
+        if (this.state.visitedArr) {
+            if (this.state.visitedArr.includes(col)) {
+console.log(col)
+            }
+
+            // const isVisitedComparisonVersion = this.state.isVisited.forEach(number => number)
+            // console.log(isVisitedComparisonVersion)
+        }
+
+        return <div className="cell" id={col} key={col}>{col}</div>
+
+        // if (this.state.isVisitedValue.includes(col)
+        // return <div className="cell" id={col} key={col}>{col}</div>
+    }
+    // console.log("idx", rowIdx*10+idx)
+    // console.log("value", col)
+    // console.log(rowIdx)
+    render() {
+        return (
+            <div>
+                <div className="grid-container">
+                    {this.state.grid.map((row, rowIdx) => {
+                        return (
+                            <div id={rowIdx} key={rowIdx}>
+                                {row.map((col, idx) => {
+                                    let comparisonIdx = rowIdx * 10 + idx
+                                    return this.generateCells(col, comparisonIdx)
+                                })}
+                            </div>
+                        )
+                    })}
+                </div>
+                <div>
+                    <Algorithms
+                        grid={this.state.grid}
+                        isVisited={this.updateVisited}
+                        updateNeighbors={this.updateNeighbors}
+                    />
+                </div>
+            </div>
+
+        )
+    }
+}
+
+
+/*
     render() {
         return (
             <div>
@@ -69,7 +114,7 @@ export default class GridContainer extends React.Component {
                     })}
                 </div>
                 <div>
-                    <Algorithms 
+                    <Algorithms
                         grid={this.state.grid}
                         isVisited={this.updateVisited}
                         updateNeighbors={this.updateNeighbors}
@@ -81,4 +126,4 @@ export default class GridContainer extends React.Component {
     }
 }
 
-
+*/

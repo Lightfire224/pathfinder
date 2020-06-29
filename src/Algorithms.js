@@ -27,7 +27,7 @@ export default class Algorithms extends React.Component {
         if (visited.has([row, col].join(","))) {
             return
         }
-        console.log("Visting", row, col, "with value", this.props.grid[row][col])
+        // console.log("Visting", row, col, "with value", this.props.grid[row][col])
         visited.add([row, col].join(","))
         this.props.isVisited([row,col])
         const nodeNeighbors = this.neighbors(grid, row, col)
