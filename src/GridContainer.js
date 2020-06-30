@@ -5,7 +5,7 @@ import Algorithms from './Algorithms'
 
 export default class GridContainer extends React.Component {
     state = {
-        grid: [], // 2-dim array
+        grid: [], 
         visitedNumbers: new Set(),
         isNeighbor: new Set(),
     }
@@ -50,7 +50,6 @@ export default class GridContainer extends React.Component {
     //     })
     // }
 
-    // need to update is visited and check stuff for each time its sent back
 
     getCellStyle = (rowIdx, colIdx) => {
         const isVisited = this.state.visitedNumbers.has([rowIdx,colIdx].join(","));
