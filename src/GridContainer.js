@@ -1,16 +1,13 @@
 import React from 'react';
 import Grid from './Grid'
 import Algorithms from './Algorithms'
-// cellStatus: [
-//     isVisited: null,
-//     isNeighbor: null
-// ]
+
+
 export default class GridContainer extends React.Component {
     state = {
         grid: [], // 2-dim array
-        isVisitedValue: [],
-        isNeighbor: [],
-        visitedArr: []
+        visitedNumbers: new Set(),
+        isNeighbor: new Set(),
     }
 
     componentDidMount() {
@@ -31,44 +28,37 @@ export default class GridContainer extends React.Component {
         this.setState({ grid })
     }
 
-    updateVisited = (isVisitedArr) => {
+    updateVisited = async (visited) => {
         //converting visited values from [row, col] ie. [3,2]
         //to integers of 
-        const isVisitedNumber = parseInt(isVisitedArr.toString().split(",").join(""),10)
-        this.state.visitedArr.push(isVisitedNumber)
-        this.setState({
-            isVisited: [...this.state.visitedArr]
+        console.log("visitedNumber", new Set([...Array.from(visited)]), this.state.visitedNumbers)
+        // this.state.visitedArr.push(isVisitedNumber)
+        return new Promise((resolve) => {
+            this.setState({
+                //old values of my set, new value
+                visitedNumbers: new Set([...Array.from(visited)]),
+            }, () => resolve())
         })
     }
 
-    updateNeighbors = (neighborItems) => {
-        const neighborList = []
-        neighborList.push(neighborItems)
-        // console.log(neighborList)
-        this.setState({
-            neighborList
-        })
+    // updateNeighbors = (neighborItems) => {
+    //     const neighborList = []
+    //     neighborList.push(neighborItems)
+    //     // console.log(neighborList)
+    //     this.setState({
+    //         neighborList
+    //     })
+    // }
+
+    // need to update is visited and check stuff for each time its sent back
+
+    getCellStyle = (rowIdx, colIdx) => {
+        const isVisited = this.state.visitedNumbers.has([rowIdx,colIdx].join(","));
+        return {
+            backgroundColor: isVisited ? "red" : "yellow",
+        };
     }
 
-    generateCells = (col, comparisonIdx) => {
-        // console.log("col:", col, "comparisonIdx", comparisonIdx)
-        if (this.state.visitedArr) {
-            if (this.state.visitedArr.includes(col)) {
-console.log(col)
-            }
-
-            // const isVisitedComparisonVersion = this.state.isVisited.forEach(number => number)
-            // console.log(isVisitedComparisonVersion)
-        }
-
-        return <div className="cell" id={col} key={col}>{col}</div>
-
-        // if (this.state.isVisitedValue.includes(col)
-        // return <div className="cell" id={col} key={col}>{col}</div>
-    }
-    // console.log("idx", rowIdx*10+idx)
-    // console.log("value", col)
-    // console.log(rowIdx)
     render() {
         return (
             <div>
@@ -76,9 +66,8 @@ console.log(col)
                     {this.state.grid.map((row, rowIdx) => {
                         return (
                             <div id={rowIdx} key={rowIdx}>
-                                {row.map((col, idx) => {
-                                    let comparisonIdx = rowIdx * 10 + idx
-                                    return this.generateCells(col, comparisonIdx)
+                                {row.map((col, colIdx) => {
+                                    return <div style={this.getCellStyle(rowIdx, colIdx)} className="cell" key={col}>{col}</div>
                                 })}
                             </div>
                         )
@@ -97,33 +86,3 @@ console.log(col)
     }
 }
 
-
-/*
-    render() {
-        return (
-            <div>
-                <div className="grid-container">
-                    {this.state.grid.map((row, rowIdx) => {
-                        return (
-                            <div id={rowIdx} key={rowIdx}>
-                                {row.map((col) => {
-                                    return <div className="cell" id={col} key={col}>{col}</div>
-                                })}
-                            </div>
-                        )
-                    })}
-                </div>
-                <div>
-                    <Algorithms
-                        grid={this.state.grid}
-                        isVisited={this.updateVisited}
-                        updateNeighbors={this.updateNeighbors}
-                    />
-                </div>
-            </div>
-
-        )
-    }
-}
-
-*/

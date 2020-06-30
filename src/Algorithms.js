@@ -20,7 +20,7 @@ export default class Algorithms extends React.Component {
         return result
     }
 
-    dfs(grid, row, col, visited, endRow, endCol) {
+    async dfs(grid, row, col, visited, endRow, endCol) {
         if (visited.has([endRow, endCol].join(","))) {
             return -1
         }
@@ -29,11 +29,11 @@ export default class Algorithms extends React.Component {
         }
         // console.log("Visting", row, col, "with value", this.props.grid[row][col])
         visited.add([row, col].join(","))
-        this.props.isVisited([row,col])
+        await this.props.isVisited(visited)
         const nodeNeighbors = this.neighbors(grid, row, col)
-        this.props.updateNeighbors(nodeNeighbors)
+        // this.props.updateNeighbors(nodeNeighbors)
         for (const node of nodeNeighbors) {
-            this.dfs(grid, node[0], node[1], visited, endRow, endCol)
+            await this.dfs(grid, node[0], node[1], visited, endRow, endCol)
         }
     }
 
