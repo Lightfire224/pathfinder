@@ -1,5 +1,9 @@
 import React from 'react'
 
+const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
+
 export default class Algorithms extends React.Component {
 
     neighbors(grid, row, col) {
@@ -29,11 +33,15 @@ export default class Algorithms extends React.Component {
         }
         // console.log("Visting", row, col, "with value", this.props.grid[row][col])
         visited.add([row, col].join(","))
-        await this.props.isVisited(visited)
+        // await
+        this.props.isVisited(visited)
+        await sleep(250)
         const nodeNeighbors = this.neighbors(grid, row, col)
-        // this.props.updateNeighbors(nodeNeighbors)
+        this.props.updateNeighbors(nodeNeighbors)
         for (const node of nodeNeighbors) {
-            await this.dfs(grid, node[0], node[1], visited, endRow, endCol)
+            // await 
+            this.dfs(grid, node[0], node[1], visited, endRow, endCol)
+            await sleep(250)
         }
     }
 
@@ -41,7 +49,7 @@ export default class Algorithms extends React.Component {
     render() {
         return (
             <div>
-                <button onClick={() => this.dfs(this.props.grid, 0, 0, new Set(), 4, 3)}> Run DFS</button>
+                <button onClick={() => this.dfs(this.props.grid, 5, 2, new Set(), 4, 3)}> Run DFS</button>
             </div>)
     }
 }

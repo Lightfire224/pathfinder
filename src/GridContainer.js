@@ -1,5 +1,4 @@
 import React from 'react';
-import Grid from './Grid'
 import Algorithms from './Algorithms'
 
 
@@ -7,7 +6,7 @@ export default class GridContainer extends React.Component {
     state = {
         grid: [], 
         visitedNumbers: new Set(),
-        isNeighbor: new Set(),
+        neighborList: [],
     }
 
     componentDidMount() {
@@ -28,43 +27,52 @@ export default class GridContainer extends React.Component {
         this.setState({ grid })
     }
 
-    updateVisited = async (visited) => {
-        //converting visited values from [row, col] ie. [3,2]
-        //to integers of 
-        console.log("visitedNumber", new Set([...Array.from(visited)]), this.state.visitedNumbers)
-        // this.state.visitedArr.push(isVisitedNumber)
-        return new Promise((resolve) => {
+    updateVisited = (visited) => {
+        console.log(new Set([...Array.from(visited)]), this.state.visitedNumbers)
             this.setState({
-                //old values of my set, new value
-                visitedNumbers: new Set([...Array.from(visited)]),
-            }, () => resolve())
-        })
-    }
+                visitedNumbers: new Set([...Array.from(visited)]), 
+            })
 
-    // updateNeighbors = (neighborItems) => {
-    //     const neighborList = []
-    //     neighborList.push(neighborItems)
-    //     // console.log(neighborList)
-    //     this.setState({
-    //         neighborList
-    //     })
-    // }
+    }
+    
+
+    updateNeighbors = (neighbors) => {
+        this.setState({
+            neighborList: [...neighbors, neighbors]
+        })
+        // this.setState({
+        //     newNeighbor: new Set([...Array.from(neighbors)])
+        // })
+    }
 
 
     getCellStyle = (rowIdx, colIdx) => {
-        const isVisited = this.state.visitedNumbers.has([rowIdx,colIdx].join(","));
+        const isVisited = this.state.visitedNumbers.has([rowIdx,colIdx].join(","))
+
+        for (const neighbor of this.state.neighborList){
+            console.log(neighbor[0], neighbor[1])
+            let neighborRowIdx = neighbor[0]
+            let neighborColIdx = neighbor[1]
+            if (neighborRowIdx===rowIdx && neighborColIdx===colIdx){
+                return {backgroundColor: "green"}
+            }
+        }
+
         return {
             backgroundColor: isVisited ? "red" : "yellow",
         };
     }
 
+    //the console.log on line 69 slows the function down, i need to make it wait more
+
     render() {
+        console.log("new neighbor", this.state.newNeighbor)
         return (
             <div>
                 <div className="grid-container">
                     {this.state.grid.map((row, rowIdx) => {
                         return (
-                            <div id={rowIdx} key={rowIdx}>
+                            <div key={rowIdx}>
                                 {row.map((col, colIdx) => {
                                     return <div style={this.getCellStyle(rowIdx, colIdx)} className="cell" key={col}>{col}</div>
                                 })}
