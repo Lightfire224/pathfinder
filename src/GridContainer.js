@@ -21,7 +21,7 @@ export default class GridContainer extends React.Component {
         const grid = []
         for (let row = 0; row < 10; row++) {
             const rowData = []
-            for (let col = 0; col < 10; col++) {
+            for (let col = 0; col < 20; col++) {
                 let tensPlace = row * 10
                 const columnNumber = tensPlace + col
                 rowData.push(columnNumber)
@@ -32,7 +32,6 @@ export default class GridContainer extends React.Component {
     }
 
     updateVisited = (visited) => {
-        console.log(new Set([...Array.from(visited)]), this.state.visitedNumbers)
         this.setState({
             visitedNumbers: new Set([...Array.from(visited)]),
         })
@@ -104,7 +103,6 @@ export default class GridContainer extends React.Component {
     //the console.log on line 69 slows the function down, i need to make it wait more
 
     render() {
-        console.log("new neighbor", this.state.newNeighbor)
         return (
             <div>
                 <div className="grid-container">
