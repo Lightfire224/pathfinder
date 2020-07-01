@@ -33,23 +33,59 @@ export default class Algorithms extends React.Component {
         }
         // console.log("Visting", row, col, "with value", this.props.grid[row][col])
         visited.add([row, col].join(","))
-        // await
         this.props.isVisited(visited)
         await sleep(250)
         const nodeNeighbors = this.neighbors(grid, row, col)
         this.props.updateNeighbors(nodeNeighbors)
         for (const node of nodeNeighbors) {
-            // await 
             this.dfs(grid, node[0], node[1], visited, endRow, endCol)
             await sleep(250)
         }
+    }
+
+    async bfs(grid, row, col, visited, endRow, endCol) {
+        const queue = [[row, col]]
+        while (queue.length > 0) {
+            const current = queue.shift()
+    
+            // console.log("Visting", current, "with value", grid[current[0]][current[1]])
+            visited.add([current[0], current[1]].join(","))
+            this.props.isVisited(visited)
+            await sleep(150)
+
+            if (visited.has([endRow, endCol].join(","))) {
+                return -1
+            }
+    
+            const nodeNeighbors = this.neighbors(grid, current[0], current[1])
+            this.props.updateNeighbors(nodeNeighbors)
+
+            for (const [r, c] of nodeNeighbors) {
+                if (!visited.has([r, c].join(","))) {
+                    queue.push([r, c])
+                    await sleep(150)
+
+                }
+            }
+        }
+    
     }
 
 
     render() {
         return (
             <div>
-                <button onClick={() => this.dfs(this.props.grid, 5, 2, new Set(), 4, 3)}> Run DFS</button>
+                <button onClick={() => this.dfs(this.props.grid,
+                    this.props.startPosition[0], this.props.startPosition[1],
+                    new Set(),
+                    this.props.endPosition[0],this.props.endPosition[1])
+                    }> Run DFS</button>
+                <button onClick={() => this.bfs(this.props.grid, 
+                    this.props.startPosition[0], this.props.startPosition[1],
+                    new Set(),
+                    this.props.endPosition[0],this.props.endPosition[1])
+                    }> Run BFS</button>
+
             </div>)
     }
 }
