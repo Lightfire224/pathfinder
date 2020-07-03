@@ -25,44 +25,7 @@ const grid = [
     [31, 32, 33, 34, 35], // 2
 ]
 
-// function dijkstras(grid, row, col) {
-//     const nodeNeighbors = neighbors(grid, row, col)
 
-//     graph = {}
-// }
-
-/*     if (visited.has([endRow, endCol].join(","))) {
-    return -1
-}
-
-if (visited.has([row, col].join(","))) {
-    return
-}
-// console.log("Visting", row, col, "with value", grid[row][col])
-visited.add([row, col].join(","))
-
-const nodeNeighbors = neighbors(grid, row, col)
-for (node of nodeNeighbors) {
-    dfs(grid, node[0], node[1], visited, endRow, endCol)
-}
-*/
-// async dfs(grid, row, col, visited, endRow, endCol) {
-
-//     if (visited.has([endRow, endCol].join(","))) {
-//         return -1
-//     }
-//     if (visited.has([row, col].join(","))) {
-//         return
-//     }
-//     // console.log("Visting", row, col, "with value", this.props.grid[row][col])
-//     visited.add([row, col].join(","))
-//     this.props.isVisited(visited)
-//     const nodeNeighbors = this.neighbors(grid, row, col)
-//     this.props.updateNeighbors(nodeNeighbors)
-//     for (const node of nodeNeighbors) {
-//         this.dfs(grid, node[0], node[1], visited, endRow, endCol)
-//     }
-// }
 function dfs(grid, row, col, visited, endRow, endCol) {
     let stack = [[row, col]]
     visited.add([row, col].join(","))
@@ -87,8 +50,6 @@ function dfs(grid, row, col, visited, endRow, endCol) {
 //Tests
 function testDFS() {
     dfs(grid, 0, 0, new Set(), 2, 2);
-    // console.log('solving next..')
-    // dfs(grid, 0, 1, new Set());
 }
 
 function bfs(grid, row, col, visited, endRow, endCol) {
@@ -143,15 +104,16 @@ function createGrid() {
         for (let col = 0; col < 10; col++) {
             let tensPlace = row * 10
             const columnNumber = tensPlace + col
-            rowData.push(columnNumber)
+            rowData.push([{value: columnNumber, weight:0}])
         }
         grid.push(rowData)
     }
     // console.log(grid)
+    console.log(grid)
     return grid
 }
 
-// createGrid()
+createGrid()
 
 // function breakUpEachIndividualGridNumber(grid){
 

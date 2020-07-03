@@ -27,12 +27,13 @@ export default class GridContainer extends React.Component {
             for (let col = 0; col < 10; col++) {
                 let tensPlace = row * 10
                 const columnNumber = tensPlace + col
-                rowData.push(columnNumber)
+                rowData.push([{ value: columnNumber, weight: 0 }])
             }
             grid.push(rowData)
         }
         this.setState({ grid })
     }
+
 
     updateVisited = (visited) => {
         this.setState({
@@ -55,16 +56,16 @@ export default class GridContainer extends React.Component {
             }
         }
 
-        if(this.state.endPosition){
-            if(this.state.endPosition[0] === rowIdx && this.state.endPosition[1] === colIdx){
-                return {backgroundColor: "hotpink"}
+        if (this.state.endPosition) {
+            if (this.state.endPosition[0] === rowIdx && this.state.endPosition[1] === colIdx) {
+                return { backgroundColor: "hotpink" }
             }
         }
 
-        if(this.state.wallPosition){
-            for (const wall of this.state.wallPosition){
-                if (wall[0] === rowIdx && wall[1] === colIdx){
-                    return {backgroundColor: "black"}
+        if (this.state.wallPosition) {
+            for (const wall of this.state.wallPosition) {
+                if (wall[0] === rowIdx && wall[1] === colIdx) {
+                    return { backgroundColor: "black" }
                 }
             }
         }
@@ -84,10 +85,11 @@ export default class GridContainer extends React.Component {
         };
     }
 
-   
+
     //the console.log on line 69 slows the function down, i need to make it wait more
 
     render() {
+        console.log(this.state.grid[0])
         return (
             <div>
                 <div className="grid-container">
@@ -103,7 +105,7 @@ export default class GridContainer extends React.Component {
                                             onClick={() => this.setNode(rowIdx, colIdx)}
                                             style={this.getCellStyle(rowIdx, colIdx)}
                                             className="cell"
-                                            key={col}>{col}
+                                            key={col}>{col.value}
                                         </div>)
                                 })}
                             </div>
@@ -144,17 +146,17 @@ export default class GridContainer extends React.Component {
     }
 
     setNode = (rowIdx, colIdx) => {
-        if (this.state.editMode===0) {
+        if (this.state.editMode === 0) {
             this.setState({
                 startPosition: [rowIdx, colIdx]
             })
         }
-        if (this.state.editMode===1) {
+        if (this.state.editMode === 1) {
             this.setState({
                 endPosition: [rowIdx, colIdx]
             })
         }
-        if (this.state.editMode===2){
+        if (this.state.editMode === 2) {
             this.setState({
                 wallPosition: [...this.state.wallPosition, [rowIdx, colIdx]]
             })
