@@ -64,23 +64,23 @@ export default class Algorithms extends React.Component {
     async dfs(grid, row, col, visited, endRow, endCol) {
         let stack = [[row, col]]
         visited.add([row, col].join(","))
+        this.props.isVisited(visited)
 
         while (stack.length > 0) {
+
             if (visited.has([endRow, endCol].join(","))) {
                 return -1
             }
             let curr = stack.pop()
-            console.log(visited)
-
-            const nodeNeighbors = this.neighbors(grid, curr[0], curr[1])
-            this.props.updateNeighbors(nodeNeighbors)
+            visited.add([curr[0], curr[1]].join(","))
+            this.props.isVisited(visited)
             await sleep(150)
+            const nodeNeighbors = this.neighbors(grid, curr[0], curr[1])
+            await sleep(150)
+            this.props.updateNeighbors(nodeNeighbors)
             for (const node of nodeNeighbors) {
                 if (!(visited.has([node[0], node[1]].join(",")))) {
                     stack.push([node[0], node[1]])
-                    visited.add([node[0], node[1]].join(","))
-                    this.props.isVisited(visited)
-                    await sleep(150)
                 }
             }
         }
@@ -93,21 +93,26 @@ export default class Algorithms extends React.Component {
             const current = queue.shift()
 
             // console.log("Visting", current, "with value", grid[current[0]][current[1]])
-            visited.add([current[0], current[1]].join(","))
-            this.props.isVisited(visited)
-            await sleep(150)
 
             if (visited.has([endRow, endCol].join(","))) {
                 return -1
             }
+            visited.add([current[0], current[1]].join(","))
+            await sleep(50)
+
+            this.props.isVisited(visited)
+
 
             const nodeNeighbors = this.neighbors(grid, current[0], current[1])
+
+
             this.props.updateNeighbors(nodeNeighbors)
 
             for (const [r, c] of nodeNeighbors) {
                 if (!visited.has([r, c].join(","))) {
                     queue.push([r, c])
-                    await sleep(150)
+                    await sleep(50)
+
 
                 }
             }

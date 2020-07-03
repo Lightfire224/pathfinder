@@ -72,8 +72,6 @@ function dfs(grid, row, col, visited, endRow, endCol) {
             return -1
         }
         let curr = stack.pop()
-        console.log(visited)
-
         const nodeNeighbors = neighbors(grid, curr[0], curr[1])
         for (const node of nodeNeighbors) {
             if (!(visited.has([node[0], node[1]].join(",")))) {
