@@ -8,9 +8,11 @@ export default class GridContainer extends React.Component {
         visitedNumbers: new Set(),
         neighborList: [],
         editStartNode: false,
-        startPosition: null,
         editEndNode: false,
-        endPosition: null
+        editWall: false,
+        startPosition: null,
+        endPosition: null,
+        wallPosition: [],
     }
 
     componentDidMount() {
@@ -21,7 +23,7 @@ export default class GridContainer extends React.Component {
         const grid = []
         for (let row = 0; row < 10; row++) {
             const rowData = []
-            for (let col = 0; col < 20; col++) {
+            for (let col = 0; col < 10; col++) {
                 let tensPlace = row * 10
                 const columnNumber = tensPlace + col
                 rowData.push(columnNumber)
@@ -35,7 +37,6 @@ export default class GridContainer extends React.Component {
         this.setState({
             visitedNumbers: new Set([...Array.from(visited)]),
         })
-
     }
 
 
@@ -59,6 +60,14 @@ export default class GridContainer extends React.Component {
             }
         }
 
+        if(this.state.wallPosition){
+            for (const wall of this.state.wallPosition){
+                if (wall[0] === rowIdx && wall[1] === colIdx){
+                    return {backgroundColor: "black"}
+                }
+            }
+        }
+
         const isVisited = this.state.visitedNumbers.has([rowIdx, colIdx].join(","))
 
         for (const neighbor of this.state.neighborList) {
@@ -77,14 +86,24 @@ export default class GridContainer extends React.Component {
     editStartNode = () => {
         this.setState({
             editStartNode: true,
-            editEndNode: false
+            editEndNode: false,
+            editWall: false
         })
     }
 
     editEndNode = () => {
         this.setState({
             editEndNode: true,
-            editStartNode: false
+            editStartNode: false,
+            editWall: false
+        })
+    }
+
+    editWall = () => {
+        this.setState({
+            editWall: true,
+            editStartNode: false,
+            editEndNode: false
         })
     }
 
@@ -99,6 +118,11 @@ export default class GridContainer extends React.Component {
                 endPosition: [rowIdx, colIdx]
             })
         }
+        if (this.state.editWall){
+            this.setState({
+                wallPosition: [...this.state.wallPosition, [rowIdx, colIdx]]
+            })
+        }
     }
     //the console.log on line 69 slows the function down, i need to make it wait more
 
@@ -108,6 +132,7 @@ export default class GridContainer extends React.Component {
                 <div className="grid-container">
                     <button onClick={this.editStartNode}>Place Start Node</button>
                     <button onClick={this.editEndNode}> Place End Node</button>
+                    <button onClick={this.editWall}> Place Wall Node</button>
                     {this.state.grid.map((row, rowIdx) => {
                         return (
                             <div key={rowIdx}>
@@ -131,6 +156,7 @@ export default class GridContainer extends React.Component {
                         endPosition={this.state.endPosition}
                         isVisited={this.updateVisited}
                         updateNeighbors={this.updateNeighbors}
+                        wallPosition={this.state.wallPosition}
                     />
                 </div>
             </div>
@@ -138,4 +164,3 @@ export default class GridContainer extends React.Component {
         )
     }
 }
-

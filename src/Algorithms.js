@@ -14,11 +14,17 @@ export default class Algorithms extends React.Component {
                 row + offset[0],
                 col + offset[1]
             ];
+
+            
             if (neighbor[0] >= 0
                 && neighbor[0] < grid.length
                 && neighbor[1] >= 0
                 && neighbor[1] < grid[0].length) {
-                result.push(neighbor);
+                    this.props.wallPosition.forEach(wall => {
+                        if(!(wall[0] === neighbor[0] && wall[1]===neighbor[1])){
+                            result.push(neighbor);
+                        }
+                    })
             }
         });
         return result
@@ -28,18 +34,16 @@ export default class Algorithms extends React.Component {
         if (visited.has([endRow, endCol].join(","))) {
             return -1
         }
-        if (visited.has([row, col].join(","))) {
+        if (visited.has([row, col].join(",")) && this.props.wallPosition.includes([row,col])) {
             return
         }
         // console.log("Visting", row, col, "with value", this.props.grid[row][col])
         visited.add([row, col].join(","))
         this.props.isVisited(visited)
-        await sleep(250)
         const nodeNeighbors = this.neighbors(grid, row, col)
         this.props.updateNeighbors(nodeNeighbors)
         for (const node of nodeNeighbors) {
             this.dfs(grid, node[0], node[1], visited, endRow, endCol)
-            await sleep(250)
         }
     }
 

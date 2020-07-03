@@ -119,7 +119,7 @@ function createGrid() {
 // createGrid()
 
 function breakUpEachIndividualGridNumber(grid){
-    
+
     console.log(grid)
 }
 
