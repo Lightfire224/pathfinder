@@ -30,10 +30,6 @@ export default class Algorithms extends React.Component {
     }
 
     checkWalls = (neighbor) => {
-        //purpose filter out the neighbor that shares the same row&col as a wallPosition
-        // when my neighbor is a wall, I should return null
-        // when my neighbor is not a wall, I should return neighbor
-        //my problem is that I'm only iterating over the first wall
         for (let i = 0; i < this.props.wallPosition.length; i++) {
             const wall = this.props.wallPosition[i]
             if (neighbor[0] === wall[0] && neighbor[1] === wall[1]) {
@@ -43,23 +39,18 @@ export default class Algorithms extends React.Component {
         return true
     }
 
-    // async dfs(grid, row, col, visited, endRow, endCol) {
-
-    //     if (visited.has([endRow, endCol].join(","))) {
-    //         return -1
-    //     }
-    //     if (visited.has([row, col].join(","))) {
-    //         return
-    //     }
-    //     // console.log("Visting", row, col, "with value", this.props.grid[row][col])
-    //     visited.add([row, col].join(","))
-    //     this.props.isVisited(visited)
-    //     const nodeNeighbors = this.neighbors(grid, row, col)
-    //     this.props.updateNeighbors(nodeNeighbors)
-    //     for (const node of nodeNeighbors) {
-    //         this.dfs(grid, node[0], node[1], visited, endRow, endCol)
-    //     }
-    // }
+    checkVisited = (visited, nodeNeighbors) => {
+        const nodeVisualize = []
+        for(let i=0; i<nodeNeighbors.length; i++){
+            const neighbor = nodeNeighbors[i]
+            if(visited.has([neighbor[0], neighbor[1]].join(","))){
+                continue
+            } else{
+                nodeVisualize.push(neighbor)
+            }
+        }
+        this.props.updateNeighbors(nodeVisualize)
+    }
 
     async dfs(grid, row, col, visited, endRow, endCol) {
         let stack = [[row, col]]
@@ -67,7 +58,6 @@ export default class Algorithms extends React.Component {
         this.props.isVisited(visited)
 
         while (stack.length > 0) {
-
             if (visited.has([endRow, endCol].join(","))) {
                 return -1
             }
@@ -91,29 +81,18 @@ export default class Algorithms extends React.Component {
         const queue = [[row, col]]
         while (queue.length > 0) {
             const current = queue.shift()
-
-            // console.log("Visting", current, "with value", grid[current[0]][current[1]])
-
             if (visited.has([endRow, endCol].join(","))) {
                 return -1
             }
             visited.add([current[0], current[1]].join(","))
             await sleep(50)
-
             this.props.isVisited(visited)
-
-
             const nodeNeighbors = this.neighbors(grid, current[0], current[1])
-
-
-            this.props.updateNeighbors(nodeNeighbors)
-
+            this.checkVisited(visited, nodeNeighbors)
             for (const [r, c] of nodeNeighbors) {
                 if (!visited.has([r, c].join(","))) {
                     queue.push([r, c])
                     await sleep(50)
-
-
                 }
             }
         }
