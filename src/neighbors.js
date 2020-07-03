@@ -31,30 +31,67 @@ const grid = [
 //     graph = {}
 // }
 
-function dfs(grid, row, col, visited, endRow, endCol) {
-
-    if (visited.has([endRow, endCol].join(","))) {
-        return -1
-    }
-
-    if (visited.has([row, col].join(","))) {
-        return
-    }
-    // console.log("Visting", row, col, "with value", grid[row][col])
-    visited.add([row, col].join(","))
-
-    const nodeNeighbors = neighbors(grid, row, col)
-    for (node of nodeNeighbors) {
-        dfs(grid, node[0], node[1], visited, endRow, endCol)
-    }
+/*     if (visited.has([endRow, endCol].join(","))) {
+    return -1
 }
 
-/// Tests
-// function testDFS() {
-// dfs(grid, 0, 0, new Set(), 2, 2);
-// console.log('solving next..')
-// dfs(grid, 0, 1, new Set());
+if (visited.has([row, col].join(","))) {
+    return
+}
+// console.log("Visting", row, col, "with value", grid[row][col])
+visited.add([row, col].join(","))
+
+const nodeNeighbors = neighbors(grid, row, col)
+for (node of nodeNeighbors) {
+    dfs(grid, node[0], node[1], visited, endRow, endCol)
+}
+*/
+// async dfs(grid, row, col, visited, endRow, endCol) {
+
+//     if (visited.has([endRow, endCol].join(","))) {
+//         return -1
+//     }
+//     if (visited.has([row, col].join(","))) {
+//         return
+//     }
+//     // console.log("Visting", row, col, "with value", this.props.grid[row][col])
+//     visited.add([row, col].join(","))
+//     this.props.isVisited(visited)
+//     const nodeNeighbors = this.neighbors(grid, row, col)
+//     this.props.updateNeighbors(nodeNeighbors)
+//     for (const node of nodeNeighbors) {
+//         this.dfs(grid, node[0], node[1], visited, endRow, endCol)
+//     }
 // }
+function dfs(grid, row, col, visited, endRow, endCol) {
+    let stack = [[row, col]]
+    visited.add([row, col].join(","))
+
+    while (stack.length > 0) {
+        if (visited.has([endRow, endCol].join(","))) {
+            return -1
+        }
+        let curr = stack.pop()
+        console.log(visited)
+
+        const nodeNeighbors = neighbors(grid, curr[0], curr[1])
+        for (const node of nodeNeighbors) {
+            if (!(visited.has([node[0], node[1]].join(",")))) {
+                stack.push([node[0], node[1]])
+                visited.add([node[0], node[1]].join(","))
+            }
+        }
+    }
+    return visited
+}
+
+
+//Tests
+function testDFS() {
+    dfs(grid, 0, 0, new Set(), 2, 2);
+    // console.log('solving next..')
+    // dfs(grid, 0, 1, new Set());
+}
 
 function bfs(grid, row, col, visited, endRow, endCol) {
     const queue = [[row, col]]
@@ -99,12 +136,12 @@ function testNeighbor() {
     // console.log(neighbors(grid, 1, 2).map(coord => grid[coord[0]][coord[1]]))
 }
 
-// testDFS()
+testDFS()
 
 function createGrid() {
     const grid = []
     for (let row = 0; row < 10; row++) {
-        const rowData=[]
+        const rowData = []
         for (let col = 0; col < 10; col++) {
             let tensPlace = row * 10
             const columnNumber = tensPlace + col
@@ -118,9 +155,12 @@ function createGrid() {
 
 // createGrid()
 
-function breakUpEachIndividualGridNumber(grid){
+// function breakUpEachIndividualGridNumber(grid){
 
-    console.log(grid)
-}
+//     console.log(grid)
+// }
 
-breakUpEachIndividualGridNumber(createGrid())
+// breakUpEachIndividualGridNumber(createGrid())
+
+
+

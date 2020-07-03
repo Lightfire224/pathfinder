@@ -43,21 +43,48 @@ export default class Algorithms extends React.Component {
         return true
     }
 
+    // async dfs(grid, row, col, visited, endRow, endCol) {
+
+    //     if (visited.has([endRow, endCol].join(","))) {
+    //         return -1
+    //     }
+    //     if (visited.has([row, col].join(","))) {
+    //         return
+    //     }
+    //     // console.log("Visting", row, col, "with value", this.props.grid[row][col])
+    //     visited.add([row, col].join(","))
+    //     this.props.isVisited(visited)
+    //     const nodeNeighbors = this.neighbors(grid, row, col)
+    //     this.props.updateNeighbors(nodeNeighbors)
+    //     for (const node of nodeNeighbors) {
+    //         this.dfs(grid, node[0], node[1], visited, endRow, endCol)
+    //     }
+    // }
+
     async dfs(grid, row, col, visited, endRow, endCol) {
-        if (visited.has([endRow, endCol].join(","))) {
-            return -1
-        }
-        if (visited.has([row, col].join(",")) && this.props.wallPosition.includes([row, col])) {
-            return
-        }
-        // console.log("Visting", row, col, "with value", this.props.grid[row][col])
+        let stack = [[row, col]]
         visited.add([row, col].join(","))
-        this.props.isVisited(visited)
-        const nodeNeighbors = this.neighbors(grid, row, col)
-        this.props.updateNeighbors(nodeNeighbors)
-        for (const node of nodeNeighbors) {
-            this.dfs(grid, node[0], node[1], visited, endRow, endCol)
+
+        while (stack.length > 0) {
+            if (visited.has([endRow, endCol].join(","))) {
+                return -1
+            }
+            let curr = stack.pop()
+            console.log(visited)
+
+            const nodeNeighbors = this.neighbors(grid, curr[0], curr[1])
+            this.props.updateNeighbors(nodeNeighbors)
+            await sleep(150)
+            for (const node of nodeNeighbors) {
+                if (!(visited.has([node[0], node[1]].join(",")))) {
+                    stack.push([node[0], node[1]])
+                    visited.add([node[0], node[1]].join(","))
+                    this.props.isVisited(visited)
+                    await sleep(150)
+                }
+            }
         }
+        return visited
     }
 
     async bfs(grid, row, col, visited, endRow, endCol) {
