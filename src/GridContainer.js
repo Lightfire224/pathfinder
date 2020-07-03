@@ -1,15 +1,19 @@
 import React from 'react';
 import Algorithms from './Algorithms'
 
+// const START_EDIT_MODE = 0
+// const END_EDIT_MODE = 1
+// const WALL_EDIT_MODE = 2
 
 export default class GridContainer extends React.Component {
     state = {
         grid: [],
         visitedNumbers: new Set(),
         neighborList: [],
-        editStartNode: false,
-        editEndNode: false,
-        editWall: false,
+        editMode: null,
+        // editStartNode: false,
+        // editEndNode: false,
+        // editWall: false,
         startPosition: null,
         endPosition: null,
         wallPosition: [],
@@ -83,47 +87,7 @@ export default class GridContainer extends React.Component {
         };
     }
 
-    editStartNode = () => {
-        this.setState({
-            editStartNode: true,
-            editEndNode: false,
-            editWall: false
-        })
-    }
-
-    editEndNode = () => {
-        this.setState({
-            editEndNode: true,
-            editStartNode: false,
-            editWall: false
-        })
-    }
-
-    editWall = () => {
-        this.setState({
-            editWall: true,
-            editStartNode: false,
-            editEndNode: false
-        })
-    }
-
-    setNode = (rowIdx, colIdx) => {
-        if (this.state.editStartNode) {
-            this.setState({
-                startPosition: [rowIdx, colIdx]
-            })
-        }
-        if (this.state.editEndNode) {
-            this.setState({
-                endPosition: [rowIdx, colIdx]
-            })
-        }
-        if (this.state.editWall){
-            this.setState({
-                wallPosition: [...this.state.wallPosition, [rowIdx, colIdx]]
-            })
-        }
-    }
+   
     //the console.log on line 69 slows the function down, i need to make it wait more
 
     render() {
@@ -163,4 +127,41 @@ export default class GridContainer extends React.Component {
 
         )
     }
+
+    editStartNode = () => {
+        this.setState({
+            editMode: 0,
+        })
+    }
+
+    editEndNode = () => {
+        this.setState({
+            editMode: 1,
+        })
+    }
+
+    editWall = () => {
+        this.setState({
+            editMode: 2,
+        })
+    }
+
+    setNode = (rowIdx, colIdx) => {
+        if (this.state.editMode===0) {
+            this.setState({
+                startPosition: [rowIdx, colIdx]
+            })
+        }
+        if (this.state.editMode===1) {
+            this.setState({
+                endPosition: [rowIdx, colIdx]
+            })
+        }
+        if (this.state.editMode===2){
+            this.setState({
+                wallPosition: [...this.state.wallPosition, [rowIdx, colIdx]]
+            })
+        }
+    }
+
 }
