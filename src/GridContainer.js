@@ -87,7 +87,6 @@ export default class GridContainer extends React.Component {
         //the console.log on line 69 slows the function down, i need to make it wait more
 
         render() {
-            console.log(this.state.grid)
             return (
                 <div>
                     <div className="grid-container">
@@ -98,13 +97,14 @@ export default class GridContainer extends React.Component {
                         {this.state.grid.map((row, rowIdx) => {
                             return (
                                 <div key={rowIdx}>
-                                    {row.map(({ value }, colIdx) => {
+                                    {row.map(({ value,weight }, colIdx) => {
                                         return (
                                             <div
                                                 onClick={() => this.setNode(rowIdx, colIdx)}
                                                 style={this.getCellStyle(rowIdx, colIdx)}
                                                 className="cell"
                                                 key={value}>{value}
+                                                {/* W:{weight} */}
                                             </div>)
                                     })}
                                 </div>
@@ -124,9 +124,8 @@ export default class GridContainer extends React.Component {
                          reRender={this.fetchData}
                          />
                          <div>
-                    {/* {this.state.algorithm_list.map(algorithm => 
-                        <UserInfoContainer algorithm={algorithm}/>
-                        )} */}
+                        <UserInfoContainer/>
+                        
                          </div>
                     </div>
                 </div>

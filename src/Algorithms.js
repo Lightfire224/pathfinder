@@ -83,14 +83,18 @@ export default class Algorithms extends React.Component {
         const queue = [[row, col]]
         while (queue.length > 0) {
             const current = queue.shift()
+
             if (visited.has([endRow, endCol].join(","))) {
                 return -1
             }
             visited.add([current[0], current[1]].join(","))
-            await sleep(50)
+
             this.props.isVisited(visited)
+            await sleep(50)
+
             const nodeNeighbors = this.neighbors(grid, current[0], current[1])
             this.visualizeUnvisited(visited, nodeNeighbors)
+
             for (const [r, c] of nodeNeighbors) {
                 if (!visited.has([r, c].join(","))) {
                     queue.push([r, c])
@@ -131,11 +135,11 @@ export default class Algorithms extends React.Component {
                         }
                     }
                 )
-        ) //weight:0, totalWeight: null
+        ) 
         vertexList.push(source)
         for (let i = 0; i < vertexList.length; i++) {
             let vertex = vertexList[i]
-            if (vertex.coord != source.coord) {
+            if (vertex.coord !== source.coord) {
                 const vertexKey = vertex.key
                 dist[vertexKey] = Infinity
                 prev[vertexKey] = undefined
@@ -143,21 +147,8 @@ export default class Algorithms extends React.Component {
             Q.push(vertex)
         }
         while (!Q.empty()) {
-            const currentVertex = Q.pop()
+            let currentVertex = Q.pop()
             const coord = currentVertex.coord
-
-            if (currentVertex.key === getKey([endRow, endCol])){
-                prev[currentVertex] !== undefined || getKey(currentVertex) === source
-            }
-            // if currentVertex.key is getKey([endRow, endCol])
-            /*
-            1  S ← empty sequence
-            2  u ← target
-            3  if prev[u] is defined or u = source:          // Do something only if the vertex is reachable
-            4      while u is defined:                       // Construct the shortest path with a stack S
-            5          insert u at the beginning of S        // Push the vertex onto the stack
-            6          u ← prev[u]                           // Traverse from target to source
-            */
             const nodeNeighbors = this.neighbors(
                 grid,
                 coord[0], 
@@ -172,6 +163,39 @@ export default class Algorithms extends React.Component {
                 }
             }
         }
+        // console.log("prev: ",prev)
+        // console.log("dist: ", dist)
+        let path =[]
+        let currentKey = getKey([endRow, endCol])
+    
+        if (prev[currentKey] !== undefined){
+            while (currentKey !== undefined){
+                console.log("currentKey: ",currentKey)
+                path.unshift(currentKey)
+                let prevKey = prev[currentKey]
+                if (prevKey === undefined) {
+                    break;
+                }
+                currentKey = prev[currentKey].key
+            }
+        }
+        this.props.isVisited(path)
+        console.log("path: ", path)
+
+            // if currentVertex.key is getKey([endRow, endCol])
+            /*
+            1  S ← empty sequence
+            2  u ← target
+            3  if prev[u] is defined or u = source:          // Do something only if the vertex is reachable
+            4      while u is defined:                       // Construct the shortest path with a stack S
+            5          insert u at the beginning of S        // Push the vertex onto the stack
+            6          u ← prev[u]                           // Traverse from target to source
+            */
+            
+            // while (currentVertex.key !== undefined){
+            //     visited.add(currentVertex)
+            //      currentVertex = prev[currentVertex.key]
+            // }
 
         console.log({dist, prev})
     }

@@ -10,8 +10,9 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 function App() {
   return (
     <div className="App">
-      {/* <Nav /> */}
+      
       <Router>
+      <Route component={Nav} exact path={["/algorithms", "/algoway"]}/>
       <Route exact path="/algoway" component={GridContainer}/>
       <Route exact path="/algorithms" component={UserInfoContainer} />
       </Router>
