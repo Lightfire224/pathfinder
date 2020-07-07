@@ -1,6 +1,7 @@
 import React from 'react';
 import Algorithms from './Algorithms'
 import InputContainer from './InputContainer'
+import UserInfoContainer from './UserInfoContainer'
 
 export default class GridContainer extends React.Component {
     state = {
@@ -11,21 +12,11 @@ export default class GridContainer extends React.Component {
         startPosition: null,
         endPosition: null,
         wallPosition: [],
-        algorithm_list: []
     }
 
     componentDidMount() {
         this.createNodes()
-        // this.fetchData()
     }
-
-    fetchData = () => {
-        fetch(`http://localhost:3000/algorithms`)
-            .then(r => r.json())
-            .then(algorithm_list => {
-                this.setState({ algorithm_list })
-            })
-        }
 
         createNodes() {
             const grid = []
@@ -132,6 +123,11 @@ export default class GridContainer extends React.Component {
                         <InputContainer
                          reRender={this.fetchData}
                          />
+                         <div>
+                    {/* {this.state.algorithm_list.map(algorithm => 
+                        <UserInfoContainer algorithm={algorithm}/>
+                        )} */}
+                         </div>
                     </div>
                 </div>
 
