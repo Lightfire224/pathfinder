@@ -80,6 +80,7 @@ export default class GridContainer extends React.Component {
 
             return {
                 backgroundColor: isVisited ? "red" : "yellow",
+                animation: isVisited ? "cellpulse 0.5s linear" : "none"
             };
         }
 
@@ -124,7 +125,7 @@ export default class GridContainer extends React.Component {
                          reRender={this.fetchData}
                          />
                          <div>
-                        <UserInfoContainer/>
+                        {/* <UserInfoContainer/> */}
                         
                          </div>
                     </div>

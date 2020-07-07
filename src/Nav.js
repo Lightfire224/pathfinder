@@ -9,13 +9,15 @@ const Nav = props => {
      */
     return (
         <div className="simple-flex-row">
-            <Link to="/"> <div>🐰🐱🐶🐹☕️🍵</div> </Link>
-            <Link to="/"><div>Home</div></Link>
-            <Link to="/pets"><div>Pets</div></Link>
-            <div className="simple-flex-row right-corner">
+            <div>AlgoMagic</div>
+            <Link to="/algoway"> <div>Algoway</div> </Link>
+            <Link to="/algorhythm"><div>AlgoRhythm</div></Link>
+            <Link to="/algorithms"><div>Saved Algos</div></Link>
+
+            {/* <div className="simple-flex-row right-corner">
                 <Link to="/login"><div>Login</div></Link>
                 <Link to="/help"><div>?</div></Link>
-            </div>
+            </div> */}
         </div>
     )
 }

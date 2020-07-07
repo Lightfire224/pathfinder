@@ -6,7 +6,8 @@ export default class UserInfoContainer extends React.Component {
 
     state = {
         algorithm_list: [],
-        toggle: false
+        toggle: false,
+        id: null
     }
     fetchData = () => {
         fetch(`http://localhost:3000/algorithms`)
@@ -18,12 +19,12 @@ export default class UserInfoContainer extends React.Component {
 
     handleRedirect = (id) => {
         if (this.state.toggle === true) {
-            return <Redirect to="/algorithms/1" />
+            return <Redirect to={`/algorithms/${this.state.id}`}/>
         }
     }
 
-    toggleRedirect = () => {
-        this.setState({ toggle: true })
+    toggleRedirect = (id) => {
+        this.setState({toggle: true, id })
     }
 
 

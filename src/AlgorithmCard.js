@@ -2,7 +2,6 @@ import React from "react";
 
 const AlgorithmCard = (props) => {
 
-
     return (
         <div>
             <div class="card">
@@ -10,7 +9,7 @@ const AlgorithmCard = (props) => {
                         <h4><b>{props.title}</b></h4>
                         <p>{props.user}</p>
                         <p>{props.personal_note}</p>
-                        <button onClick={() => props.toggleRedirect()}>Show Page</button>
+                        <button onClick={() => props.toggleRedirect(props.id)}>Show Page</button>
                     </div>
         </div>
 
