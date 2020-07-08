@@ -35,19 +35,17 @@ export default class InputContainer extends React.Component {
 
     render() {
         return (
-            <div>
-                <div className="ui segment">
-                    <form className="ui form" >
-                        <div className="inline fields">
-                            <input type="text" value={this.state.user} onChange={this.handleChange} name="user" placeholder="User"/>
-                            <input type="text" value={this.state.title} onChange={this.handleChange} name="title" placeholder="Title" />
-                            <input type="text" value={this.state.personal_note} onChange={this.handleChange} name="personal_note" placeholder="Personal Note" />
-                        </div>
-                        <button className="ui button" onClick={this.handleSubmit} type="submit">
-                            Save Algo
+            <div className="Input-Container">
+                <form className="ui form" >
+                    <div className="inline fields">
+                        <input type="text" value={this.state.user} onChange={this.handleChange} name="user" placeholder="User" />
+                        <input type="text" value={this.state.title} onChange={this.handleChange} name="title" placeholder="Title" />
+                        <input type="text" value={this.state.personal_note} onChange={this.handleChange} name="personal_note" placeholder="Personal Note" />
+                    </div>
+                    <button className="ui button" onClick={this.handleSubmit} type="submit">
+                        Save Algo
             </button>
-                    </form>
-                </div>
+                </form>
             </div>
         )
     }

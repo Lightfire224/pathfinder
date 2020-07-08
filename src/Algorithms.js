@@ -236,7 +236,7 @@ export default class Algorithms extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="Algorithm-Buttons">
                 <button onClick={() => this.dfs(this.props.grid,
                     this.props.startPosition[0], this.props.startPosition[1],
                     new Set(),

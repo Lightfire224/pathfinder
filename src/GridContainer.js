@@ -13,6 +13,17 @@ export default class GridContainer extends React.Component {
         endPosition: null,
         wallPosition: [],
     }
+    
+    resetGrid = () => {
+        this.setState({
+            visitedNumbers: new Set(),
+            neighborList: [],
+            editMode: null,
+            startPosition: null,
+            endPosition: null,
+            wallPosition: [],
+        })
+    }
 
     componentDidMount() {
         this.createNodes()
@@ -50,20 +61,20 @@ export default class GridContainer extends React.Component {
         getCellStyle = (rowIdx, colIdx) => {
             if (this.state.startPosition) {
                 if (this.state.startPosition[0] === rowIdx && this.state.startPosition[1] === colIdx) {
-                    return { backgroundColor: "blue" }
+                    return { backgroundColor: "lawngreen" }
                 }
             }
 
             if (this.state.endPosition) {
                 if (this.state.endPosition[0] === rowIdx && this.state.endPosition[1] === colIdx) {
-                    return { backgroundColor: "hotpink" }
+                    return { backgroundColor: "coral" }
                 }
             }
 
             if (this.state.wallPosition) {
                 for (const wall of this.state.wallPosition) {
                     if (wall[0] === rowIdx && wall[1] === colIdx) {
-                        return { backgroundColor: "black" }
+                        return { backgroundColor: "rgba(0, 0, 0, 0.411)" }
                     }
                 }
             }
@@ -74,12 +85,12 @@ export default class GridContainer extends React.Component {
                 let neighborRowIdx = neighbor[0]
                 let neighborColIdx = neighbor[1]
                 if (neighborRowIdx === rowIdx && neighborColIdx === colIdx) {
-                    return { backgroundColor: "green" }
+                    return { backgroundColor: "crimson" }
                 }
             }
 
             return {
-                backgroundColor: isVisited ? "red" : "yellow",
+                backgroundColor: isVisited ? "DeepPink" : "gold",
                 animation: isVisited ? "cellpulse 0.5s linear" : "none"
             };
         }
@@ -91,6 +102,7 @@ export default class GridContainer extends React.Component {
             return (
                 <div>
                     <div className="grid-container">
+            <button onClick={this.resetGrid} > Reset Grid</button>
                         <button onClick={this.editStartNode}>Place Start Node</button>
                         <button onClick={this.editEndNode}> Place End Node</button>
                         <button onClick={this.editWall}> Place Wall Node</button>
@@ -112,7 +124,7 @@ export default class GridContainer extends React.Component {
                             )
                         })}
                     </div>
-                    <div>
+                    <div id="algo-input-container">
                         <Algorithms
                             grid={this.state.grid}
                             startPosition={this.state.startPosition}
@@ -176,4 +188,4 @@ export default class GridContainer extends React.Component {
             }
         }
 
-    }
+}

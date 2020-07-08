@@ -5,6 +5,17 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.9), 
+    rgba(0, 0, 0, 0.85)
+  ) no-repeat center center fixed, 
+  url('https://lh3.googleusercontent.com/proxy/LzgAFRmuNtrh8e5nVAYP_J4lrlNTXq7eiZ5LIF-bxLli3TpklaF7dlo2TDZfFtBeKB9-LCt-GaIIogNwj3Dmhpa0CiV0cnI') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-blend-mode: luminosity;
+  background-color: black;
 }
 
 code {
@@ -12,17 +23,31 @@ code {
     monospace;
 }
 
-.grid{
+.grid-container{
+  box-shadow: inset 0 0 100px gold;
+  padding: 50px;
   width: 620px;
   height: 620px;
+  position: relative;
+  display: inline-block;
+  top: 30px;
 }
 
 .cell{
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.534);
   display: inline-block;
   width:60px;
   height:60px;
   border: solid 1px black;
   background-color: white;
+  border-radius: 5px;
+}
+
+.cell:hover{
+  box-shadow: inset 0 0 20px white;
+}
+.cell:active{
+  box-shadow: inset 0 0 20px rgb(216, 26, 9);
 }
 
 @keyframes cellpulse {
@@ -49,6 +74,11 @@ img{
 
 .main-container{
   background-color: #36454f;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
 .sorting-container{
@@ -72,4 +102,28 @@ img{
   padding: 2px;
   border: 5px;
   border-color: white;
+}
+
+.Input-Container{
+  position: relative;
+  display: inline-block;
+  top: 0;
+  margin-bottom: 100px;
+}
+
+.Algorithm-Buttons{
+  position: relative;
+  display: inline-block;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  width: 100vw;
+}
+
+#algo-input-container{
+  position: relative;
+  display: inline-block;
+  width: 100vw;
+  top: 50px;
+  height: 300px;
+  text-align: center;
 }
