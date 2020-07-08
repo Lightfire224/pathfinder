@@ -9,7 +9,7 @@ body {
     rgba(0, 0, 0, 0.9), 
     rgba(0, 0, 0, 0.85)
   ) no-repeat center center fixed, 
-  url('https://lh3.googleusercontent.com/proxy/LzgAFRmuNtrh8e5nVAYP_J4lrlNTXq7eiZ5LIF-bxLli3TpklaF7dlo2TDZfFtBeKB9-LCt-GaIIogNwj3Dmhpa0CiV0cnI') no-repeat center center fixed;
+  url('https://media.giphy.com/media/WmXEvGhBslxzFmfQwv/giphy.gif') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -89,7 +89,7 @@ img{
   border-radius: 5px;
   padding: 3px;
   width: 80%;
-  height: 60%;
+  height: 85%;
   box-shadow: 0px 0px 10px darkgray;
 }
 

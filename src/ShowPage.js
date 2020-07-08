@@ -5,9 +5,9 @@ export default class ShowPage extends React.Component {
     state = {
         algorithm: [],
         content: '',
-        algorithm_id: 1
+        commentData: []
     }
-    fetchData = () => {
+    fetchAlgoData = () => {
         fetch(`http://localhost:3000/${this.props.location.pathname}`)
             .then(r => r.json())
             .then(algorithm => {
@@ -15,8 +15,17 @@ export default class ShowPage extends React.Component {
             })
     }
 
+    fetchCommentData = () => {
+        fetch(`http://localhost:3000/comments/2`)
+        .then(r => r.json())
+        .then(commentData => {
+            this.setState({ commentData })
+        })
+    }
+
     componentDidMount() {
-        this.fetchData()
+        this.fetchAlgoData()
+        this.fetchCommentData()
     }
 
     handleChange = (event) => {
@@ -48,13 +57,14 @@ export default class ShowPage extends React.Component {
     }
 
     render() {
+        console.log(this.state.commentData)
         return (
             <div>
-                <div class="card">
-                    <div class="container">
-                        <h4><b>{this.state.algorithm.user}</b></h4>
-                        <p>{this.state.algorithm.personal_note}</p>
-                        <p>{this.state.algorithm.title}</p>
+                <div className="card">
+                    <div className="container">
+                        <h4 style={{color: "white"}}><b>User: {this.state.algorithm.user}</b></h4>
+                        <p style={{color: "white"}}>Personal Note: {this.state.algorithm.personal_note}</p>
+                        <p style={{color: "white"}}>Title: {this.state.algorithm.title}</p>
                     </div>
                 </div>
 
@@ -67,6 +77,8 @@ export default class ShowPage extends React.Component {
                             Save Content
                         </button>
                     </form>
+        <p style={{color: "white"}}>Comment: {this.state.commentData.content}</p>
+
                 </div>
 
 

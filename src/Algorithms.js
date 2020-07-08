@@ -170,7 +170,7 @@ export default class Algorithms extends React.Component {
     
         if (prev[currentKey] !== undefined){
             while (currentKey !== undefined){
-                console.log("currentKey: ",currentKey)
+                console.log("currentKey: ", currentKey)
                 path.unshift(currentKey)
                 let prevKey = prev[currentKey]
                 if (prevKey === undefined) {
