@@ -79,10 +79,6 @@ export default class GridContainer extends React.Component {
                 }
             }
 
-            // if(this.state.editMode=== 3){
-            //     console.log("hi")
-            // }
-
             const isVisited = this.state.visitedNumbers.has([rowIdx, colIdx].join(","))
 
             for (const neighbor of this.state.neighborList) {
@@ -111,8 +107,6 @@ export default class GridContainer extends React.Component {
                         <button onClick={this.editEndNode}> Place End Node</button>
                         <button onClick={this.editWall}> Place Wall Node</button>
                         <button onClick={this.editWeight}> Place Weight on Node</button>
-                        {/* <button onClick={this.state.grid[row][col].weight+10}> Place Weight on Node</button> */}
-
                         {this.state.grid.map((row, rowIdx) => {
                             return (
                                 <div key={rowIdx}>
@@ -123,7 +117,6 @@ export default class GridContainer extends React.Component {
                                                 style={this.getCellStyle(rowIdx, colIdx)}
                                                 className="cell"
                                                 key={value}>{this.state.grid[rowIdx][colIdx].weight}
-                                                {/* W:{weight} */}
                                             </div>)
                                     })}
                                 </div>
