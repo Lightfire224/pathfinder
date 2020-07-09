@@ -1,31 +1,28 @@
 import React from "react";
+import CommentContainer from "./CommentContainer"
 
 export default class ShowPage extends React.Component {
 
     state = {
         algorithm: [],
         content: '',
-        commentData: []
+        algorithm_id: 1
     }
+
+
     fetchAlgoData = () => {
         fetch(`http://localhost:3000/${this.props.location.pathname}`)
             .then(r => r.json())
             .then(algorithm => {
-                this.setState({ algorithm })
+                this.setState({ 
+                    algorithm,
+                    algorithm_id: algorithm.id
+                })
             })
-    }
-
-    fetchCommentData = () => {
-        fetch(`http://localhost:3000/comments/2`)
-        .then(r => r.json())
-        .then(commentData => {
-            this.setState({ commentData })
-        })
     }
 
     componentDidMount() {
         this.fetchAlgoData()
-        this.fetchCommentData()
     }
 
     handleChange = (event) => {
@@ -53,18 +50,18 @@ export default class ShowPage extends React.Component {
 
         fetch(`http://localhost:3000/comments`, options)
             .then(r => r.json())
-            .then(console.log)
+            .then(comment => this.setState({comments: [...this.state.comments, comment]}))
     }
 
     render() {
-        console.log(this.state.commentData)
+        console.log(this.state.algorithm.id)
         return (
             <div>
                 <div className="card">
                     <div className="container">
-                        <h4 style={{color: "white"}}><b>User: {this.state.algorithm.user}</b></h4>
-                        <p style={{color: "white"}}>Personal Note: {this.state.algorithm.personal_note}</p>
-                        <p style={{color: "white"}}>Title: {this.state.algorithm.title}</p>
+                        <h4 style={{ color: "white" }}><b>User: {this.state.algorithm.user}</b></h4>
+                        <p style={{ color: "white" }}>Personal Note: {this.state.algorithm.personal_note}</p>
+                        <p style={{ color: "white" }}>Title: {this.state.algorithm.title}</p>
                     </div>
                 </div>
 
@@ -73,15 +70,12 @@ export default class ShowPage extends React.Component {
                         <div className="inline fields">
                             <input type="text" value={this.state.content} onChange={this.handleChange} name="content" placeholder="Content" />
                         </div>
-                        <button className="ui button"  type="submit">
+                        <button className="ui button" type="submit">
                             Save Content
                         </button>
                     </form>
-        <p style={{color: "white"}}>Comment: {this.state.commentData.content}</p>
-
+                    <CommentContainer algo={this.state.algorithm} />
                 </div>
-
-
             </div>);
     }
 

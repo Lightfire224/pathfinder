@@ -57,7 +57,6 @@ function bfs(grid, row, col, visited, endRow, endCol) {
     while (queue.length > 0) {
         const current = queue.shift()
 
-        // console.log("Visting", current, "with value", grid[current[0]][current[1]])
         visited.add([current[0], current[1]].join(","))
 
         if (visited.has([endRow, endCol].join(","))) {
@@ -114,13 +113,3 @@ function createGrid() {
 }
 
 createGrid()
-
-// function breakUpEachIndividualGridNumber(grid){
-
-//     console.log(grid)
-// }
-
-// breakUpEachIndividualGridNumber(createGrid())
-
-
-
