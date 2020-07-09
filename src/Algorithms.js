@@ -163,8 +163,6 @@ export default class Algorithms extends React.Component {
                 }
             }
         }
-        // console.log("prev: ",prev)
-        // console.log("dist: ", dist)
         let path =[]
         let currentKey = getKey([endRow, endCol])
     

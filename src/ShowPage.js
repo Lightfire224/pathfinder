@@ -34,7 +34,6 @@ export default class ShowPage extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault()
         event.persist()
-        console.log(this.state.content)
 
         const options = {
             method: 'POST',
