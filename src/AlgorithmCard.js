@@ -1,7 +1,7 @@
 import React from "react";
 
 const AlgorithmCard = (props) => {
-
+// last thing
     return (
         <div>
             <div className="card">
