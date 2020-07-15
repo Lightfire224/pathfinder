@@ -103,8 +103,9 @@ export default class GridContainer extends React.Component {
     render() {
         return (
             <div>
+                    
                 <div className="grid-container">
-                    <button onClick={this.resetGrid} > Reset Grid</button>
+                <button onClick={this.resetGrid} > Reset Grid</button>
                     <button onClick={this.editStartNode}>Place Start Node</button>
                     <button onClick={this.editEndNode}> Place End Node</button>
                     <button onClick={this.editWall}> Place Wall Node</button>
@@ -126,6 +127,7 @@ export default class GridContainer extends React.Component {
                     })}
                 </div>
                 <div id="algo-input-container">
+
                     <Algorithms
                         grid={this.state.grid}
                         startPosition={this.state.startPosition}
@@ -134,6 +136,7 @@ export default class GridContainer extends React.Component {
                         updateNeighbors={this.updateNeighbors}
                         wallPosition={this.state.wallPosition}
                     />
+
                     <InputContainer
                         reRender={this.fetchData}
                     />
