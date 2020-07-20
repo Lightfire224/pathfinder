@@ -8,8 +8,7 @@ body {
   background: linear-gradient(
     rgba(0, 0, 0, 0.9), 
     rgba(0, 0, 0, 0.85)
-  ) no-repeat center center fixed, 
-  url('https://media.giphy.com/media/WmXEvGhBslxzFmfQwv/giphy.gif') no-repeat center center fixed;
+  );
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
