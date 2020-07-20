@@ -168,7 +168,6 @@ export default class Algorithms extends React.Component {
     
         if (prev[currentKey] !== undefined){
             while (currentKey !== undefined){
-                console.log("currentKey: ", currentKey)
                 path.unshift(currentKey)
                 let prevKey = prev[currentKey]
                 if (prevKey === undefined) {
@@ -178,57 +177,7 @@ export default class Algorithms extends React.Component {
             }
         }
         this.props.isVisited(path)
-        console.log("path: ", path)
-
-            // if currentVertex.key is getKey([endRow, endCol])
-            /*
-            1  S ← empty sequence
-            2  u ← target
-            3  if prev[u] is defined or u = source:          // Do something only if the vertex is reachable
-            4      while u is defined:                       // Construct the shortest path with a stack S
-            5          insert u at the beginning of S        // Push the vertex onto the stack
-            6          u ← prev[u]                           // Traverse from target to source
-            */
-            
-            // while (currentVertex.key !== undefined){
-            //     visited.add(currentVertex)
-            //      currentVertex = prev[currentVertex.key]
-            // }
-
-        console.log({dist, prev})
     }
-
-    // const nodeNeighbors = this.neighbors(grid, )
-    /*
-    1  function Dijkstra(Graph, source):
-    2      dist[source] ← 0                           // Initialization
-    3
-    4      create vertex priority queue Q
-    5
-    6      for each vertex v in Graph:  // grid is graph         
-    7          if v != source
-    8              dist[v] = Infinity                 // Unknown distance from source to v
-    9              prev[v] = undefined                // Predecessor of v
-    10
-    11         Q.push([v, dist[v]])
-    12
-    13
-    14     while Q is not empty:                      // The main loop
-    15         u = Q.pop()                    // Remove and return best vertex
-    16         for each neighbor v of u:              // only v that are still in Q
-    17             alt = dist[u] + length(u, v) 
-    18             if alt < dist[v]
-    19                 dist[v] = alt
-    20                 prev[v] = u
-    21                 Q.decrease_priority(v, alt)
-    22
-    23     return dist, prev
-    */
-    /*
-    dist = {}
-    pq = new Heap // npm install heap@0.2.6 --save
-
-    */
 
 
 
